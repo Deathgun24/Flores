@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#8fcf4a" />
+  <title>Feliz inicio de la primavera</title>
+  <style>
+    :root {
+      --sky-top: #9ddcff;
+      --sky-bottom: #e9f9ff;
+      --grass-top: #78bd42;
+      --grass-bottom: #3e8d2f;
+      --yellow: #ffd92f;
+      --yellow-deep: #ffb900;
+      --center: #8f5b1b;
+      --stem: #2f7e34;
+      --leaf: #3f9843;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #8fcf4a;
+    }
+
+    body {
+      min-height: 100svh;
+    }
+
+    .scene {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      background: linear-gradient(to bottom, var(--sky-top) 0 52%, var(--sky-bottom) 52% 57%, var(--grass-top) 57% 72%, var(--grass-bottom) 72% 100%);
+      isolation: isolate;
+    }
+
+    .sun {
+      position: absolute;
+      width: 105px;
+      height: 105px;
+      right: 7vw;
+      top: 5vh;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff7b0 0 34%, #ffd44b 58%, rgba(255, 210, 55, 0.18) 70%, transparent 72%);
+      filter: drop-shadow(0 0 20px rgba(255, 220, 92, .55));
+      z-index: 0;
+    }
+
+    .cloud {
+      position: absolute;
+      width: 140px;
+      height: 42px;
+      background: rgba(255,255,255,.86);
+      border-radius: 999px;
+      filter: blur(.1px);
+      z-index: 0;
+      animation: drift 18s linear infinite alternate;
+    }
+
+    .cloud::before, .cloud::after {
+      content: "";
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .cloud::before { width: 58px; height: 58px; left: 24px; top: -26px; }
+    .cloud::after { width: 76px; height: 76px; right: 18px; top: -38px; }
+    .cloud.c1 { left: -20px; top: 12vh; transform: scale(.75); opacity: .75; }
+    .cloud.c2 { left: 52vw; top: 21vh; transform: scale(.55); opacity: .65; animation-duration: 24s; }
+
+    @keyframes drift {
+      from { translate: -8px 0; }
+      to { translate: 20px 0; }
+    }
+
+    .message-wrap {
+      position: relative;
+      z-index: 4;
+      width: min(92vw, 760px);
+      margin: 0 auto;
+      padding: max(56px, 8vh) 0 0;
+      text-align: center;
+    }
+
+    .message {
+      margin: 0;
+      padding: 18px 20px;
+      color: #3d3b14;
+      font-size: clamp(1.65rem, 6vw, 3.4rem);
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      text-wrap: balance;
+      text-shadow: 0 2px 0 rgba(255,255,255,.65);
+      background: rgba(255,255,255,.38);
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 24px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 16px 38px rgba(46,93,37,.12);
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      font-size: clamp(.95rem, 3vw, 1.15rem);
+      font-weight: 700;
+      color: #4c591f;
+      text-shadow: 0 1px 0 rgba(255,255,255,.75);
+    }
+
+    .hill {
+      position: absolute;
+      left: -18vw;
+      bottom: 27vh;
+      width: 82vw;
+      height: 19vh;
+      background: #6cae3d;
+      border-radius: 50% 50% 0 0;
+      transform: rotate(-4deg);
+      z-index: 1;
+      opacity: .85;
+    }
+
+    .hill.h2 {
+      left: 35vw;
+      bottom: 28vh;
+      width: 95vw;
+      height: 18vh;
+      background: #5da038;
+      transform: rotate(4deg);
+      opacity: .72;
+    }
+
+    .flowers {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .flower {
+      --x: 50vw;
+      --y: 86vh;
+      --s: 1;
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: 52px;
+      height: 120px;
+      transform: translate(-50%, -100%) scale(var(--s));
+      transform-origin: bottom center;
+      animation: sway 3.8s ease-in-out infinite alternate;
+      animation-delay: calc(var(--i) * -0.16s);
+    }
+
+    @keyframes sway {
+      from { rotate: -2deg; }
+      to { rotate: 3deg; }
+    }
+
+    .stem {
+      position: absolute;
+      width: 5px;
+      height: 84px;
+      left: 24px;
+      bottom: 0;
+      border-radius: 6px;
+      background: linear-gradient(to right, #26682b, var(--stem), #4d9a44);
+    }
+
+    .leaf {
+      position: absolute;
+      width: 28px;
+      height: 11px;
+      background: var(--leaf);
+      border-radius: 100% 0 100% 0;
+      transform-origin: right center;
+    }
+    .leaf.l1 { left: 0; bottom: 34px; transform: rotate(24deg); }
+    .leaf.l2 { right: 0; bottom: 52px; transform: rotate(158deg); }
+
+    .head {
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      left: 0;
+      top: 0;
+      animation: bob 2.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes bob {
+      from { transform: translateY(0); }
+      to { transform: translateY(-3px); }
+    }
+
+    .petal {
+      position: absolute;
+      width: 18px;
+      height: 29px;
+      left: 17px;
+      top: 2px;
+      background: linear-gradient(#ffe866, var(--yellow));
+      border-radius: 70% 70% 52% 52%;
+      transform-origin: 9px 24px;
+      filter: drop-shadow(0 1px 0 rgba(185,135,0,.18));
+    }
+    .p1 { transform: rotate(0deg); }
+    .p2 { transform: rotate(45deg); }
+    .p3 { transform: rotate(90deg); }
+    .p4 { transform: rotate(135deg); }
+    .p5 { transform: rotate(180deg); }
+    .p6 { transform: rotate(225deg); }
+    .p7 { transform: rotate(270deg); }
+    .p8 { transform: rotate(315deg); }
+
+    .center {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 16px;
+      top: 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #d69b42, var(--center) 62%, #643710 100%);
+      box-shadow: 0 0 0 2px rgba(255, 197, 28, .35);
+      z-index: 2;
+    }
+
+    .foreground {
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -3vh;
+      height: 24vh;
+      background: linear-gradient(to bottom, rgba(47,127,48,0) 0, rgba(34,111,38,.55) 35%, #28732f 100%);
+      filter: blur(.1px);
+      z-index: 2;
+    }
+
+    .sparkles {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 12% 63%, rgba(255,239,106,.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 38% 70%, rgba(255,237,99,.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 72% 65%, rgba(255,245,130,.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 89% 72%, rgba(255,232,72,.85) 0 2px, transparent 3px);
+      background-size: 120px 100px, 170px 120px, 150px 110px, 130px 95px;
+      opacity: .55;
+    }
+
+    .footer {
+      position: absolute;
+      z-index: 5;
+      bottom: max(16px, env(safe-area-inset-bottom));
+      width: 100%;
+      text-align: center;
+      font-size: .82rem;
+      color: rgba(255,255,255,.88);
+      text-shadow: 0 1px 2px rgba(0,0,0,.25);
+      font-weight: 700;
+    }
+
+    @media (max-height: 650px) {
+      .message-wrap { padding-top: 28px; }
+      .message { font-size: clamp(1.4rem, 5vw, 2.6rem); }
+    }
+  </style>
+</head>
+<body>
+  <main class="scene" aria-label="Campo de flores amarillas por inicio de primavera">
+    <div class="sun"></div>
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="hill"></div>
+    <div class="hill h2"></div>
+
+    <section class="message-wrap">
+      <h1 class="message">Feliz inicio de la primavera, amiga Kiarita Mongolita 🌼</h1>
+      <p class="subtitle">Que tu día florezca bonito 💛</p>
+    </section>
+
+    <div class="sparkles"></div>
+    <div class="flowers" id="flowers"></div>
+    <div class="foreground"></div>
+    <div class="footer">21 de septiembre · Primavera</div>
+  </main>
+
+  <script>
+    const flowerTemplate = (x, y, s, i) => `
+      <div class="flower" style="--x:${x}vw;--y:${y}vh;--s:${s};--i:${i}">
+        <div class="stem"></div>
+        <div class="leaf l1"></div>
+        <div class="leaf l2"></div>
+        <div class="head">
+          <span class="petal p1"></span><span class="petal p2"></span>
+          <span class="petal p3"></span><span class="petal p4"></span>
+          <span class="petal p5"></span><span class="petal p6"></span>
+          <span class="petal p7"></span><span class="petal p8"></span>
+          <span class="center"></span>
+        </div>
+      </div>`;
+
+    const flowers = document.getElementById('flowers');
+    const points = [
+      [5,92,.75],[13,88,.9],[21,95,1.0],[30,87,.78],[39,94,1.08],[48,89,.9],[58,96,1.02],
+      [68,88,.8],[77,94,1.1],[87,89,.9],[96,95,.76],[9,79,.55],[20,82,.65],[33,77,.52],
+      [45,81,.6],[58,76,.5],[71,82,.62],[83,78,.54],[94,83,.64],[3,70,.38],[17,72,.42],
+      [29,68,.35],[41,73,.43],[54,69,.4],[65,72,.36],[78,68,.4],[90,72,.42],[98,67,.36]
+    ];
+    flowers.innerHTML = points.map((p, i) => flowerTemplate(p[0], p[1], p[2], i)).join('');
+  </script>
+</body>
+</html>
